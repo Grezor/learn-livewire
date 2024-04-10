@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\User;
 use Livewire\Component;
 
 class Counter extends Component
 {
     public int $count = 0;
     public bool $disable = true;
-
     public function increment(): void
     {
         $this->count++;
@@ -29,8 +29,25 @@ class Counter extends Component
         }
     }
 
+    public $username = "TEST USER";
+
     public function render()
     {
-        return view('livewire.counter');
+        $title = 'test';
+        $users = User::all();
+
+        return view('livewire.counter', [
+            'title' => $title,
+            'users' => $users,
+        ]);
+    }
+
+    public function createNewUser()
+    {
+        User::create([
+            'name' => 'Johnss Doe',
+            'email' => 'dss@gmail.com',
+            'password' => 'password',
+        ]);
     }
 }
